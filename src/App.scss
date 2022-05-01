@@ -12,60 +12,6 @@
   line-height: 1;
 }
 
-.restart {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  cursor: pointer;
-}
-table {
-  border: 1px solid #fff;
-  border-collapse: collapse;
-  margin-bottom: 24px;
-}
-th {
-  padding: 10px;
-}
-th, td {
-  border: 1px solid #fff;
-}
-.scores {
-  display: flex;
-  align-items: center;
-  color: #000;
-  margin-bottom: 32px;
-}
-
-.score-box {
-  width: 100px;
-  height: 100px;
-  position: relative;
-}
-.score-hits {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  border: 1px solid #282c34;
-  color: #282c34;
-}
-.first-hit, .second-hit, .third-hit {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  border: 1px solid #282c34;
-}
-.total {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-}
 .game-total {
   background-color: #fff;
   margin: 0 12px;

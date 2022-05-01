@@ -1,7 +1,10 @@
-import { ChangeEvent, FormEvent, KeyboardEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import InputNumber from './components/InputNumber';
+import RestartButton from './components/RestartButton';
+import ScoresTable from './components/ScoresTable';
 import './App.scss';
 
-export interface Score {
+export interface ScoreI {
   id: number;
   hits: {
     '1': number | null;
@@ -13,7 +16,7 @@ export interface Score {
   total: number | null;
 }
 
-const initialState = Array.from({ length: 10 }, (item, index) => ({
+const initialState = Array.from({ length: 10 }, (_, index) => ({
   id: index,
   hits: {
     '1': null,
@@ -25,18 +28,13 @@ const initialState = Array.from({ length: 10 }, (item, index) => ({
   total: null,
 }));
 
-const onInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => ['e', 'E', '+', '-', ',', '.'].includes(e.key) && e.preventDefault();
 
 function App() {
   const [inputValue, setInputValue] = useState('');
-  const [scores, setScores] = useState<Score[]>(initialState);
+  const [scores, setScores] = useState<ScoreI[]>(initialState);
   const [currentRound, setCurrentRound] = useState<number>(0);
   const [currentHit, setCurrentHit] = useState<number>(0);
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value);
-
-  useEffect(() => {
-    console.log(scores);
-  },[scores])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -124,54 +122,15 @@ function App() {
     setInputValue('');
   };
   const inputMaxValue = currentRound === 9 ? (currentHit === 1 ? 10 - (+scores[currentRound].hits[0] || 0) : 10): 10 - (+scores[currentRound].hits[currentHit] || 0);
-  const isInputDisabled = inputValue === '' || currentRound === 10;
-  const totalGameScore = scores[9].total !== null && scores[9].total;
+  const isSubmitBtnDisabled = inputValue === '' || currentRound === 10; 
   return (
     <div className='App'>
       <main>
-        <div onClick={onRestartBtnClickHandler} className='restart'>
-          restart
-        </div>
-        <table>
-          <thead>
-            <tr>
-              {scores.map((item) => (
-                <th key={item.id}>{item.id + 1}</th>
-              ))}
-              <th>Total Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {scores.map((item) => {
-                const firstHit = item.id === 9 ? (item.hits['1'] === 10 ? 'X' : item.hits['1']) : (item.isStrike ? '' : item.hits['1']);
-                const secondHit = item.id === 9 ? (item.hits['2'] === 10 ? 'X' : ((item.hits['1']  !== 10 && item.hits['1'] + item.hits['2'] === 10 )? '/' : item.hits['2'] )) :  (item.isStrike ? 'X' : (item.isSpare ? '/' : item.hits['2']))
-                const thirdHit = item.id === 9 ? (item.hits['3'] === 10 ? 'X' : item.hits['3']) : null;
-                return (
-                  <td key={item.id} className='score-box'>
-                    <div className='score-hits'>
-                      <div className='first-hit'>{firstHit}</div>
-                      <div className='second-hit'>{secondHit}</div>
-                      {item.id === 9 && <div className='third-hit'>{thirdHit}</div>}
-                    </div>
-                    <div className='total'>{item.total}</div>
-                  </td>
-                );
-              })}
-              <td>{totalGameScore}</td>
-            </tr>
-          </tbody>
-        </table>
+        <RestartButton onClick={onRestartBtnClickHandler}/>
+        <ScoresTable scores={scores} />
         <form onSubmit={onSubmit}>
-          <input
-            type='number'
-            onKeyDown={onInputKeyDown}
-            max={inputMaxValue}
-            min={0}
-            value={inputValue}
-            onChange={onInputChange}
-          />
-          <button disabled={isInputDisabled} type='submit'>
+          <InputNumber onChange={onInputChange} max={inputMaxValue} value={inputValue} />
+          <button disabled={isSubmitBtnDisabled} type='submit'>
             submit
           </button>
         </form>

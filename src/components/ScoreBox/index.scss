@@ -1,0 +1,30 @@
+.score-box {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  &__hits {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    border: 1px solid #282c34;
+    color: #282c34;
+  }
+  &__first, &__second, &__third {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #282c34;
+  }
+  &__total {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+  }
+}
