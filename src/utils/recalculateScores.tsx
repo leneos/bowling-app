@@ -3,25 +3,26 @@ import { getIsSpare } from './getIsSpare';
 import { TScore } from "../types/Score.type";
 
 export const recalculateScores = (scores:  TScore[]) => {
-  for (let i = 0; i < scores.length; i++) {
+  const newArr = [...scores];
+  for (let i = 0; i < newArr.length; i++) {
     let total = null;
-    const item = scores[i];
+    const item = newArr[i];
 
     const isSpare = getIsSpare(item)
     const isStrike = getIsStrike(item)
 
-    const lastRoundTotal = scores?.[i - 1]?.total || 0;
+    const lastRoundTotal = newArr?.[i - 1]?.total || 0;
 
     if (i !== 9) {
-      if (isSpare && scores[i + 1].hits['1'] !== null) {
-        total = 10 + scores[i + 1].hits['1'] + lastRoundTotal;
+      if (isSpare && newArr[i + 1].hits['1'] !== null) {
+        total = 10 + newArr[i + 1].hits['1'] + lastRoundTotal;
       }
       if (isStrike) {
-        if (i + 1 === 9 && scores[9].hits['1'] !== null && scores[9].hits['2'] !== null) {
-          total = 10 + scores[9].hits['1'] + scores[9].hits['2'] + lastRoundTotal;
+        if (i + 1 === 9 && newArr[9].hits['1'] !== null && newArr[9].hits['2'] !== null) {
+          total = 10 + newArr[9].hits['1'] + newArr[9].hits['2'] + lastRoundTotal;
         }
-        if (i + 1 !== 9 && scores[i + 1].hits['1'] !== null && (scores[i + 1].hits['2'] !== null || scores[i + 2].hits['1'] !== null)) {
-          total = 10 + scores[i + 1].hits['1'] + (scores[i + 1].hits['2'] || scores[i + 2].hits['1']) + lastRoundTotal;
+        if (i + 1 !== 9 && newArr[i + 1].hits['1'] !== null && (newArr[i + 1].hits['2'] !== null || newArr[i + 2].hits['1'] !== null)) {
+          total = 10 + newArr[i + 1].hits['1'] + (newArr[i + 1].hits['2'] || newArr[i + 2].hits['1']) + lastRoundTotal;
         }
       }
 
@@ -44,5 +45,5 @@ export const recalculateScores = (scores:  TScore[]) => {
 
     item.total = total;
   }
-  return scores;
+  return newArr;
 };

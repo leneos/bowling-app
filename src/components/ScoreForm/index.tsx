@@ -1,16 +1,16 @@
 import { FormEventHandler, memo } from 'react';
 import './index.scss';
 
-interface IScoreForm {
+type TScoreForm = {
   children: React.ReactNode;
   onSubmit: FormEventHandler<HTMLFormElement>;
-}
-const ScoreForm = ({ children, onSubmit }: IScoreForm) => {
+};
+const ScoreForm = ({ children, onSubmit }: TScoreForm) => {
   return (
     <form className='score-form' onSubmit={onSubmit}>
       {children}
     </form>
-  )
-}
+  );
+};
 
-export default memo(ScoreForm)
+export default memo(ScoreForm);

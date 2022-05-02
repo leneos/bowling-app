@@ -1,11 +1,19 @@
-import { TScore } from "../types/Score.type";
-import { getCurrentHit } from "./getCurrentHit";
-import { getCurrentRound } from "./getCurrentRound";
+import { TScore } from '../types/Score.type';
+import { getCurrentHit } from './getCurrentHit';
+import { getCurrentRound } from './getCurrentRound';
 
-export const updateScores = (scores: TScore[], currentHitValue: number) => {
-  const arrCopy = [...scores]
-  const currentRound  = getCurrentRound(arrCopy);
-  const currentHit = getCurrentHit(arrCopy[currentRound])
-  arrCopy[currentRound].hits[currentHit] = currentHitValue;
-  return arrCopy;
-}
+type TupdateScores = {
+  scores: TScore[];
+  currentHitValue: number;
+};
+
+export const updateScores = ({ scores, currentHitValue }: TupdateScores) => {
+  const copyArr = [...scores];
+  const currentRound = getCurrentRound(copyArr);
+  const currentHit = getCurrentHit(copyArr[currentRound]);
+  copyArr.splice(currentRound, 1, {
+    ...copyArr[currentRound],
+    hits: { ...copyArr[currentRound].hits, [currentHit]: currentHitValue },
+  });
+  return copyArr;
+};

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import InputNumber from './components/InputNumber';
 import RestartButton from './components/RestartButton';
 import ScoreForm from './components/ScoreForm';
@@ -23,20 +23,19 @@ const initialState = Array.from({ length: 10 }, (_, index) => {
   };
 });
 
-
-
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [scores, setScores] = useState<TScore[]>(initialState);
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value);
+  useEffect(() => console.log(scores), [scores]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValue === '') {
       return;
     }
-    const updatedScores = updateScores(scores, +inputValue)
-    const recalculatedScores = recalculateScores(updatedScores)
+    const updatedScores = updateScores({ scores, currentHitValue: +inputValue });
+    const recalculatedScores = recalculateScores(updatedScores);
     setScores(recalculatedScores);
     setInputValue('');
   };

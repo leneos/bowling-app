@@ -1,11 +1,30 @@
-table {
-  border: 1px solid #fff;
+.scores-table {
   border-collapse: collapse;
   margin-bottom: 24px;
-}
-th {
-  padding: 10px;
-}
-th, td {
-  border: 1px solid #fff;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: 138px;
+  width: 100%;
+  @media (min-width: 768px) and (max-width: 1279px){
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 138px);
+  }
+  @media (max-width: 767px){
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 138px);
+  }
+  &__heading {
+    text-align: center;
+    border: 1px solid #fff;
+    padding: 10px;
+  }
+  &__cell {
+    display: flex;
+    flex-direction: column;
+  }
+  &__total-game-score {
+    text-align: center;
+    border: 1px solid #fff;
+    height: 100%;
+  }
 }

@@ -1,4 +1,7 @@
 .input-number {
+  width: 100%;
+  padding: 8px;
+  text-align: center;
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
