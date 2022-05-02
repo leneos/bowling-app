@@ -113,7 +113,8 @@ function App() {
     if (inputValue === '') {
       return;
     }
-    setScores(recalculateScores({scores, currentHitValue: +inputValue}));
+    const newScores = recalculateScores({ scores, currentHitValue: +inputValue})
+    setScores(newScores);
     setInputValue('');
   };
 
@@ -124,18 +125,18 @@ function App() {
 
   const isGameFinished = useMemo(() => scores[scores.length - 1].total !== null, [scores]);
 
-  const isSubmitBtnDisabled = inputValue === '';
-
   const inputMaxValue = useMemo(() => {
     const currentRound = getCurrentRound(scores)
     const currentHit = getCurrentHit(scores[currentRound])
     const hits = scores[currentRound].hits;
-    
     if (currentRound === 9) {
       return currentHit === 1 ?  10 - (+hits[0] || 0) : 10
     } 
     return  10 - (+hits[currentHit - 1] || 0)
-  },[scores])
+  },[scores]);
+
+  const isSubmitBtnDisabled = inputValue === '';
+
   return (
     <div className='App'>
       <main>
