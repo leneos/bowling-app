@@ -1,6 +1,6 @@
-import { IScore } from "../types/IScore.type";
+import { TScore } from "../types/Score.type";
 
-export const getCurrentHit = (currentScore: IScore) => {
+export const getCurrentHit = (currentScore: TScore) => {
   const firstHit = currentScore.hits['1'];
   const secondHit = currentScore.hits['2'];
   if (firstHit === null) return 1;

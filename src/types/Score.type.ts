@@ -1,4 +1,4 @@
-export type IScore = {
+export type TScore = {
   id: number;
   hits: {
     '1': number | null;

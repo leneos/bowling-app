@@ -1,13 +1,14 @@
 import { memo } from "react";
-import { IScore } from "../../types/IScore.type";
+import { TScore } from "../../types/Score.type";
 import { getIsSpare } from "../../utils/getIsSpare";
 import { getIsStrike } from "../../utils/getIsStrike";
 import ScoreBox from "../ScoreBox";
 import './index.scss';
-interface IScoresTable {
-  scores: IScore[];
+
+type TScoresTable = {
+  scores: TScore[];
 }
-const ScoresTable = ({ scores }: IScoresTable) =>{
+const ScoresTable = ({ scores }: TScoresTable) =>{
   const totalGameScore = scores[9].total !== null && scores[9].total;
   return (
     <table>

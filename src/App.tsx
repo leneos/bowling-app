@@ -3,10 +3,12 @@ import InputNumber from './components/InputNumber';
 import RestartButton from './components/RestartButton';
 import ScoreForm from './components/ScoreForm';
 import ScoresTable from './components/ScoresTable';
-import { IScore } from './types/IScore.type';
+import { TScore } from './types/Score.type';
 import { recalculateScores } from './utils/recalculateScores';
 import { getCurrentRound } from './utils/getCurrentRound';
 import { getCurrentHit } from './utils/getCurrentHit';
+import { updateScores } from './utils/updateScores';
+import SubmitButton from './components/SubmitButton';
 import './App.scss';
 
 const initialState = Array.from({ length: 10 }, (_, index) => {
@@ -21,9 +23,11 @@ const initialState = Array.from({ length: 10 }, (_, index) => {
   };
 });
 
+
+
 function App() {
   const [inputValue, setInputValue] = useState('');
-  const [scores, setScores] = useState<IScore[]>(initialState);
+  const [scores, setScores] = useState<TScore[]>(initialState);
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -31,8 +35,9 @@ function App() {
     if (inputValue === '') {
       return;
     }
-    const newScores = recalculateScores({ scores, currentHitValue: +inputValue });
-    setScores(newScores);
+    const updatedScores = updateScores(scores, +inputValue)
+    const recalculatedScores = recalculateScores(updatedScores)
+    setScores(recalculatedScores);
     setInputValue('');
   };
 
@@ -62,9 +67,7 @@ function App() {
       {!isGameFinished && (
         <ScoreForm onSubmit={onSubmit}>
           <InputNumber onChange={onInputChange} max={inputMaxValue} value={inputValue} />
-          <button disabled={isSubmitBtnDisabled} type='submit'>
-            submit
-          </button>
+          <SubmitButton disabled={isSubmitBtnDisabled} />
         </ScoreForm>
       )}
     </div>

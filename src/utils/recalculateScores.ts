@@ -1,40 +1,27 @@
 import { getIsStrike } from './getIsStrike';
 import { getIsSpare } from './getIsSpare';
-import { getCurrentHit } from './getCurrentHit';
-import { getCurrentRound } from './getCurrentRound';
-import { IScore } from "../types/IScore.type";
+import { TScore } from "../types/Score.type";
 
-type recalculateScoresI = {
-  scores: IScore[];
-  currentHitValue: number;
-}
-
-export const recalculateScores = ({ scores, currentHitValue }: recalculateScoresI) => {
-  const newScores = [...scores];
-  const currentRound  = getCurrentRound(newScores);
-  const currentHit = getCurrentHit(newScores[currentRound])
-
-  newScores[currentRound].hits[currentHit] = currentHitValue;
-
-  for (let i = 0; i < newScores.length; i++) {
+export const recalculateScores = (scores:  TScore[]) => {
+  for (let i = 0; i < scores.length; i++) {
     let total = null;
-    const item = newScores[i];
+    const item = scores[i];
 
-    const isSpare = getIsSpare(newScores[i])
-    const isStrike = getIsStrike(newScores[i])
+    const isSpare = getIsSpare(item)
+    const isStrike = getIsStrike(item)
 
-    const lastRoundTotal = newScores?.[i - 1]?.total || 0;
+    const lastRoundTotal = scores?.[i - 1]?.total || 0;
 
     if (i !== 9) {
-      if (isSpare && newScores[i + 1].hits['1'] !== null) {
-        total = 10 + newScores[i + 1].hits['1'] + lastRoundTotal;
+      if (isSpare && scores[i + 1].hits['1'] !== null) {
+        total = 10 + scores[i + 1].hits['1'] + lastRoundTotal;
       }
       if (isStrike) {
-        if (i + 1 === 9 && newScores[9].hits['1'] !== null && newScores[9].hits['2'] !== null) {
-          total = 10 + newScores[9].hits['1'] + newScores[9].hits['2'] + lastRoundTotal;
+        if (i + 1 === 9 && scores[9].hits['1'] !== null && scores[9].hits['2'] !== null) {
+          total = 10 + scores[9].hits['1'] + scores[9].hits['2'] + lastRoundTotal;
         }
-        if (i + 1 !== 9 && newScores[i + 1].hits['1'] !== null && (newScores[i + 1].hits['2'] !== null || newScores[i + 2].hits['1'] !== null)) {
-          total = 10 + newScores[i + 1].hits['1'] + (newScores[i + 1].hits['2'] || newScores[i + 2].hits['1']) + lastRoundTotal;
+        if (i + 1 !== 9 && scores[i + 1].hits['1'] !== null && (scores[i + 1].hits['2'] !== null || scores[i + 2].hits['1'] !== null)) {
+          total = 10 + scores[i + 1].hits['1'] + (scores[i + 1].hits['2'] || scores[i + 2].hits['1']) + lastRoundTotal;
         }
       }
 
@@ -57,5 +44,5 @@ export const recalculateScores = ({ scores, currentHitValue }: recalculateScores
 
     item.total = total;
   }
-  return newScores;
+  return scores;
 };

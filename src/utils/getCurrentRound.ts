@@ -1,6 +1,6 @@
-import { IScore } from "../types/IScore.type";
+import { TScore } from "../types/Score.type";
 
-export const getCurrentRound = (arr: IScore[]) => {
+export const getCurrentRound = (arr: TScore[]) => {
   let currentRound = 0;
   for (let i = arr.length - 1; i >= 0; i--) {
     const item = arr[i];
