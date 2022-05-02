@@ -3,4 +3,14 @@
   top: 16px;
   right: 16px;
   cursor: pointer;
+  color: #282c34;
+  background-color: #fff;
+  padding: 10px;
+  line-height: 1;
+  border-radius: 8px;
+  transition: all 400ms ease-in-out;
+  &:hover {
+    color: #fff;
+    background-color: #3d475c;
+  }
 }

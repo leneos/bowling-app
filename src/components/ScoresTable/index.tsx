@@ -1,5 +1,7 @@
 import { memo } from "react";
-import { getIsSpare, getIsStrike, IScore } from "../../App";
+import { IScore } from "../../types/IScore.type";
+import { getIsSpare } from "../../utils/getIsSpare";
+import { getIsStrike } from "../../utils/getIsStrike";
 import ScoreBox from "../ScoreBox";
 import './index.scss';
 interface IScoresTable {
