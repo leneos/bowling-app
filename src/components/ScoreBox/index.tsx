@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import './index.scss';
 
-interface ScoreBoxI {
+interface IScoreBox {
   id: number;
   firstHit: number | string | null;
   secondHit: number | string | null;
@@ -9,7 +9,7 @@ interface ScoreBoxI {
   total: number;
 }
 
-const ScoreBox = ({ id, firstHit, secondHit, thirdHit, total }: ScoreBoxI) => {
+const ScoreBox = ({ id, firstHit, secondHit, thirdHit, total }: IScoreBox) => {
   return (
     <td className='score-box'>
       <div className='score-box__hits'>
