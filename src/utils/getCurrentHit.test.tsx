@@ -1,20 +1,30 @@
+import { getCurrentHit } from "./getCurrentHit";
 import { getCurrentRound } from "./getCurrentRound";
 
-const getRandomNumber = (max: number, min: number): number => Math.floor(Math.random() * (max - min + 1) + min);
-
 test('getCurrentHit', () => {
-  const rndmNmbr = getRandomNumber(0,9)
-  const testData = Array.from({ length: rndmNmbr }, (_, index) => {
+  const testData = Array.from({ length: 9 }, (_, index) => {
+    if (index < 5) {
+      return {
+        id: index,
+        hits: {
+          '1': 1,
+          '2': 2,
+          '3': null,
+        },
+        total: null,
+      }
+    }
     return {
       id: index,
       hits: {
-        '1': 1,
-        '2': 1,
+        '1': null,
+        '2': null,
         '3': null,
       },
       total: null,
     };
   });
   const currentRound = getCurrentRound(testData);
-  expect(currentRound).toBe(rndmNmbr);
+  const currentHit = getCurrentHit(testData[currentRound]);
+  expect(currentHit).toBe(1);
 })

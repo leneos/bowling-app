@@ -1,12 +1,11 @@
-import { getCurrentHit } from "./getCurrentHit";
 import { getCurrentRound } from "./getCurrentRound";
 
 const getRandomNumber = (max: number, min: number): number => Math.floor(Math.random() * (max - min + 1) + min);
 
 test('getCurrentRound', () => {
-  const rndmNmbr = getRandomNumber(0,8)
+  const rndmNmbr = getRandomNumber(0, 9)
   const testData = Array.from({ length: 9 }, (_, index) => {
-    if (index > rndmNmbr) {
+    if (index >= rndmNmbr) {
       return {
         id: index,
         hits: {
@@ -28,6 +27,5 @@ test('getCurrentRound', () => {
     };
   });
   const currentRound = getCurrentRound(testData);
-  const currentHit = getCurrentHit(testData[currentRound]);
-  expect(currentHit).toBe(1);
+  expect(currentRound).toBe(rndmNmbr);
 })
