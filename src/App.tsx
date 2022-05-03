@@ -1,6 +1,6 @@
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
-import InputNumber from './components/InputNumber';
-import RestartButton from './components/RestartButton';
+import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
+import InputNumber from './components/ui/InputNumber';
+import RestartButton from './components/ui/RestartButton';
 import ScoreForm from './components/ScoreForm';
 import ScoresTable from './components/ScoresTable';
 import { TScore } from './types/Score.type';
@@ -8,8 +8,9 @@ import { recalculateScores } from './utils/recalculateScores';
 import { getCurrentRound } from './utils/getCurrentRound';
 import { getCurrentHit } from './utils/getCurrentHit';
 import { updateScores } from './utils/updateScores';
-import SubmitButton from './components/SubmitButton';
+import SubmitButton from './components/ui/SubmitButton';
 import './App.scss';
+import StartScreen from './components/StartScreen';
 
 const initialState = Array.from({ length: 10 }, (_, index) => {
   return {
@@ -27,7 +28,6 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [scores, setScores] = useState<TScore[]>(initialState);
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value);
-  useEffect(() => console.log(scores), [scores]);
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,6 +62,7 @@ function App() {
   return (
     <div className='App'>
       <RestartButton onClick={onRestartBtnClickHandler} />
+      <StartScreen /> 
       <ScoresTable scores={scores} />
       {!isGameFinished && (
         <ScoreForm onSubmit={onSubmit}>

@@ -26,4 +26,4 @@ const ScoresTable = ({ scores }: TScoresTable) => {
     </div>
     )}
 
-export default ScoresTable;
+export default memo(ScoresTable);
