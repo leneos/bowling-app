@@ -1,87 +1,48 @@
 import { TScore } from "../types/Score.type";
+import { getTestScoresArr } from "./getTestScoresArr";
 import { updateScores } from "./updateScores";
 
-const getRandomNumber = (max: number, min: number): number => Math.floor(Math.random() * (max - min + 1) + min);
 
 describe('updateScores', () => {
   test('normal score', () => {
-    const randomNumber = getRandomNumber(0, 9)
-    const testData: TScore[] = Array.from({ length: 10 }, (_, index) => {
-      if (index > randomNumber) {
+    const round = 5;
+    const testData: TScore[] = getTestScoresArr((index: number) => {
+      if (index < round) {
         return {
-          id: index,
-          hits: {
-            '1': null,
-            '2': null,
-            '3': null,
-          },
-          total: null,
-        };
-      }
-      if (index === randomNumber) {
-        return {
-          id: index,
-          hits: {
-            '1': 1,
-            '2': null,
-            '3': null,
-          },
-          total: null,
-        };
-      }
-      return {
-        id: index,
-        hits: {
-          '1': 2,
+          '1': 1,
           '2': 2,
           '3': null,
-        },
-        total: null,
-      };
+        };
+      }
+      if (index === round) {
+        return {
+          '1': 1,
+          '2': null,
+          '3': null
+        }
+      }
+      return null;
     });
     const currentHitValue = 5;
-    const updatedScores = updateScores({scores: testData, currentHitValue})
-    const hasScoreBeenUpdated = testData[randomNumber].hits['2'] === null && updatedScores[randomNumber].hits['2'] === currentHitValue;
-    expect(hasScoreBeenUpdated).toBeTruthy()
+    const updatedScores = updateScores(testData, currentHitValue);
+    expect(testData[round].hits['2']).toBeNull();
+    expect(updatedScores[round].hits['2']).toBe(currentHitValue);
   })
   test('strike', () => {
-    const randomNumber = getRandomNumber(0, 9)
-    const testData: TScore[] = Array.from({ length: 10 }, (_, index) => {
-      if (index > randomNumber) {
+    const round = 5;
+    const testData: TScore[] = getTestScoresArr((index: number) => {
+      if (index < round) {
         return {
-          id: index,
-          hits: {
-            '1': null,
-            '2': null,
-            '3': null,
-          },
-          total: null,
-        };
-      }
-      if (index === randomNumber) {
-        return {
-          id: index,
-          hits: {
-            '1': null,
-            '2': null,
-            '3': null,
-          },
-          total: null,
-        };
-      }
-      return {
-        id: index,
-        hits: {
-          '1': 2,
+          '1': 1,
           '2': 2,
           '3': null,
-        },
-        total: null,
-      };
+        };
+      }
+      return null
     });
     const currentHitValue = 10;
-    const updatedScores = updateScores({ scores: testData, currentHitValue })
-    const hasScoreBeenUpdated = testData[randomNumber].hits['1'] === null && updatedScores[randomNumber].hits['1'] === currentHitValue;
-    expect(hasScoreBeenUpdated).toBeTruthy()
+    const updatedScores = updateScores(testData, currentHitValue)
+    expect(testData[round].hits['1']).toBeNull()
+    expect(updatedScores[round].hits['1']).toBe(currentHitValue)
   })
 })

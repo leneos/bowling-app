@@ -34,7 +34,7 @@ const Game = ({ playerInfo }: {playerInfo: TplayerInfo}) => {
     if (inputValue === '') {
       return;
     }
-    const updatedScores = updateScores({ scores, currentHitValue: +inputValue });
+    const updatedScores = updateScores(scores, +inputValue);
     const recalculatedScores = recalculateScores(updatedScores);
     setScores(recalculatedScores);
     setInputValue('');

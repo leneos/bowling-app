@@ -1,3 +1,3 @@
-import { TScore } from "../types/Score.type";
+import { THits } from "../types/Score.type";
 
-export const getIsSpare = (obj: TScore): boolean => obj.hits['1'] !== 10 && obj.hits['1'] + obj.hits['2'] === 10;
+export const getIsSpare = (hits: THits): boolean => hits['1'] !== 10 && hits['1'] + hits['2'] === 10;

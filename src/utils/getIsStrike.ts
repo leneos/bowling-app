@@ -1,3 +1,3 @@
-import { TScore } from "../types/Score.type";
+import { THits } from "../types/Score.type";
 
-export const getIsStrike = (obj: TScore): boolean => obj.hits['1'] === 10; 
+export const getIsStrike = (hits: THits): boolean => hits['1'] === 10; 

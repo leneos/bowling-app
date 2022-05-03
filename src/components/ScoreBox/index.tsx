@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { TScore } from '../../types/Score.type';
 import { getIsSpare } from '../../utils/getIsSpare';
 import { getIsStrike } from '../../utils/getIsStrike';
@@ -9,16 +8,16 @@ type TScoreBox = {
 };
 
 const ScoreBox = (({ item }: TScoreBox) => {
-  const firstHit = item.id === 9 ? (item.hits['1'] === 10 ? 'X' : item.hits['1']) : getIsStrike(item) ? '' : item.hits['1'];
+  const firstHit = item.id === 9 ? (item.hits['1'] === 10 ? 'X' : item.hits['1']) : getIsStrike(item.hits) ? '' : item.hits['1'];
   const secondHit = item.id === 9
   ? item.hits['2'] === 10
     ? 'X'
     : item.hits['1'] !== 10 && item.hits['1'] + item.hits['2'] === 10
     ? '/'
     : item.hits['2']
-  : getIsStrike(item)
+  : getIsStrike(item.hits)
   ? 'X'
-  : getIsSpare(item)
+  : getIsSpare(item.hits)
   ? '/'
   : item.hits['2'];
   const thirdHit = item.id === 9 ? (item.hits['3'] === 10 ? 'X' : item.hits['3']) : null;

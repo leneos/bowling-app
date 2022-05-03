@@ -1,45 +1,33 @@
-import { TScore } from "../types/Score.type";
-import { getIsStrike } from "./getIsStrike";
+import { THits } from '../types/Score.type';
+import { getIsStrike } from './getIsStrike';
 
 describe('getIsStrike', () => {
-  test('true', () => {
-    const scoreTrue: TScore = {
-      id: 0,
-      hits: {
-        '1': 10,
-        '2': null,
-        '3': null
-      },
-      total: null
-    }
-    const isStrike = getIsStrike(scoreTrue)
+  test('should return true', () => {
+    const hits: THits = {
+      '1': 10,
+      '2': null,
+      '3': null,
+    };
+    const isStrike = getIsStrike(hits);
     expect(isStrike).toBeTruthy();
   });
-  test('false', () => {
-    const scoreFalse: TScore = {
-      id: 0,
-      hits: {
-        '1': 1,
-        '2': 9,
-        '3': null
-      },
-      total: null
-    }
-    const isStrikeFalsy = getIsStrike(scoreFalse)
+  test('should return false', () => {
+    const hits: THits = {
+      '1': 1,
+      '2': 9,
+      '3': null,
+    };
+
+    const isStrikeFalsy = getIsStrike(hits);
     expect(isStrikeFalsy).toBeFalsy();
   });
-  test('last round true', () => {
-    const lastRoundStrike: TScore = {
-      id: 0,
-      hits: {
-        '1': 10,
-        '2': null,
-        '3': null
-      },
-      total: null
-    }
-    const isStrikeFalsy = getIsStrike(lastRoundStrike)
+  test('last round strike should be true', () => {
+    const hits: THits = {
+      '1': 10,
+      '2': null,
+      '3': null,
+    };
+    const isStrikeFalsy = getIsStrike(hits);
     expect(isStrikeFalsy).toBeTruthy();
   });
-})
-
+});

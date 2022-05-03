@@ -8,8 +8,8 @@ export const recalculateScores = (scores:  TScore[]) => {
     let total = null;
     const item = newArr[i];
 
-    const isSpare = getIsSpare(item)
-    const isStrike = getIsStrike(item)
+    const isSpare = getIsSpare(item.hits)
+    const isStrike = getIsStrike(item.hits)
 
     const lastRoundTotal = newArr?.[i - 1]?.total || 0;
 
