@@ -18,7 +18,7 @@ function App() {
   };
   return (
     <div className='App'>
-      <Header onRestartBtnClickHandler={onRestartBtnClickHandler} />
+      <Header isGameStarted={isGameStarted} onRestartBtnClickHandler={onRestartBtnClickHandler} />
       {isGameStarted ? (
         players.length > 0 && players.map((item) => <Game key={item.id} playerInfo={item} />)
       ) : (
