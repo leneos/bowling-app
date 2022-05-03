@@ -2,7 +2,7 @@
   border-collapse: collapse;
   margin-bottom: 24px;
   display: grid;
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   grid-template-rows: 138px;
   width: 100%;
   @media (min-width: 768px) and (max-width: 1279px){
@@ -12,6 +12,13 @@
   @media (max-width: 767px){
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(4, 138px);
+  }
+  &__name {
+    border: 1px solid #fff;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
   }
   &__heading {
     text-align: center;
