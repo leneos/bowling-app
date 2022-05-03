@@ -57,7 +57,7 @@ const Game = ({ playerInfo }: {playerInfo: TplayerInfo}) => {
   }, [scores]);
 
   return (
-    <div className='game'>
+    <div data-testid={`game-${playerInfo.id}`} className='game'>
       <ScoresTable scores={scores} playerName={playerInfo.name} />
       {!isGameFinished && (
         <ScoreForm onSubmit={onSubmit}>

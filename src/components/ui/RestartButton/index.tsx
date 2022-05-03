@@ -3,7 +3,7 @@ import './index.scss';
 
 const RestartButton = ({ onClick }: { onClick: () => void }) => {
   return (
-    <div onClick={onClick} className='restart-btn'>
+    <div data-testid='restart-btn' onClick={onClick} className='restart-btn'>
       restart
     </div>
   );
