@@ -6,6 +6,7 @@ import './index.scss';
 type TStartScreen = {
   getPlayers: (arg: TplayerInfo[]) => void;
 };
+
 const StartScreen = ({ getPlayers }: TStartScreen) => {
   const [players, setPlayers] = useState<TplayerInfo[]>([]);
   const [userName, setUserName] = useState('');
@@ -15,7 +16,7 @@ const StartScreen = ({ getPlayers }: TStartScreen) => {
     if (userName.length === 0) {
       return;
     }
-    const newPlayers = [...players, { id: players.length, name: userName }];
+    const newPlayers = [...players, { id: players.length, name: userName.toUpperCase() }];
     setPlayers(newPlayers);
     setUserName('');
   };
@@ -27,7 +28,7 @@ const StartScreen = ({ getPlayers }: TStartScreen) => {
   const isAddBtnDisabled = userName.length === 0;
   const isStartBtnDisabled = players.length === 0;
   return (
-    <div className='start-screen'>
+    <div data-testid='start-screen' className='start-screen'>
       <h1>Welcome!</h1>
       <div className='start-screen__players'>
         {players.map((item) => (

@@ -9,9 +9,9 @@ const Header = ({onRestartBtnClickHandler, isGameStarted}: THeader) => {
   return (
     <div className='header'>
       <div className='header__logo-wrapper'>
-        <img src={logo} alt='logotype' className='header__logo' />
+        <img data-testid='logo' src={logo} alt='logotype' className='header__logo' />
       </div>
-      {!isGameStarted && <RestartButton onClick={onRestartBtnClickHandler} />}
+      {isGameStarted && <RestartButton onClick={onRestartBtnClickHandler} />}
     </div>
   );
 };
