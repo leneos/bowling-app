@@ -19,8 +19,8 @@ function App() {
   return (
     <div className='App'>
       <Header isGameStarted={isGameStarted} onRestartBtnClickHandler={onRestartBtnClickHandler} />
-      {isGameStarted ? (
-        players.length > 0 && players.map((item) => <Game key={item.id} playerInfo={item} />)
+      {isGameStarted && players.length > 0 ? (
+         players.map((item) => <Game key={item.id} playerInfo={item} />)
       ) : (
         <StartScreen getPlayers={getPlayers} />
       )}
