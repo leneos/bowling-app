@@ -1,26 +1,25 @@
 import { TScore } from '../../types/Score.type';
-import { getIsSpare } from '../../utils/getIsSpare';
-import { getIsStrike } from '../../utils/getIsStrike';
 import './index.scss';
 
 type TScoreBox = {
   item: TScore;
 };
 
+const getLastRoundDisplayHits = (hits: TScore['hits']) => {
+  const firstHit = hits['1'] === 10 ? 'X' : hits['1']
+  const secondHit = hits['2'] === 10 ? 'X' : hits['1'] !== 10 && hits['1'] + hits['2'] === 10 ? '/' : hits['2']
+  const thirdHit = hits['3'] === 10 ? 'X' : hits['3']
+  return { firstHit, secondHit, thirdHit }
+}
+const getDisplayHits = (hits: TScore['hits']) => {
+  const firstHit = hits['1'] === 10 ? '' : hits['1']
+  const secondHit = hits['1'] === 10 ? 'X' : (hits['1'] + hits['2'] === 10) ? '/' : hits['2'];
+  const thirdHit = hits['3']
+  return { firstHit, secondHit, thirdHit }
+}
+
 const ScoreBox = (({ item }: TScoreBox) => {
-  const firstHit = item.id === 9 ? (item.hits['1'] === 10 ? 'X' : item.hits['1']) : getIsStrike(item.hits) ? '' : item.hits['1'];
-  const secondHit = item.id === 9
-  ? item.hits['2'] === 10
-    ? 'X'
-    : item.hits['1'] !== 10 && item.hits['1'] + item.hits['2'] === 10
-    ? '/'
-    : item.hits['2']
-  : getIsStrike(item.hits)
-  ? 'X'
-  : getIsSpare(item.hits)
-  ? '/'
-  : item.hits['2'];
-  const thirdHit = item.id === 9 ? (item.hits['3'] === 10 ? 'X' : item.hits['3']) : null;
+  const { firstHit, secondHit, thirdHit } = item.id === 9 ? getLastRoundDisplayHits(item.hits) : getDisplayHits(item.hits);
   return (
     <div className='score-box'>
       <div data-testid='hits' className='score-box__hits'>
